@@ -77,6 +77,10 @@ class _HomePageState extends State<HomePage> {
       completedTodos++;
       notFinishedTodos--;
     }
+    todos.removeWhere((model) => model.createdAt == todo.createdAt);
+    todos.add(todo);
+    todos.sort((a, b) => a.title.compareTo(b.title));
+    setState(() {});
   }
 
   @override
@@ -93,3 +97,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
