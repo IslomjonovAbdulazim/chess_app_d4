@@ -46,6 +46,38 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<TodoModel> todos = [];
   final controller = TextEditingController();
+  int completedTodos = 0;
+  int notFinishedTodos = 0;
+  final key = GlobalKey<FormState>();
+
+  void createTodo() {
+    final input = controller.text.trim();
+    final now = DateTime.now();
+    final model = TodoModel(
+      title: input,
+      createdAt: now,
+      finishedAt: null,
+      isFinished: false,
+    );
+    todos.add(model);
+    todos.sort((a, b) => a.title.compareTo(b.title));
+    notFinishedTodos++;
+    setState(() {});
+  }
+
+  void finishTodo(TodoModel todo) {
+    if (todo.isFinished) {
+      todo.isFinished = false;
+      todo.finishedAt = null;
+      completedTodos--;
+      notFinishedTodos++;
+    } else {
+      todo.isFinished = true;
+      todo.finishedAt = DateTime.now();
+      completedTodos++;
+      notFinishedTodos--;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
