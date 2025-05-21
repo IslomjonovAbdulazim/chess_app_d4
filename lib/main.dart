@@ -51,9 +51,11 @@ class _HomePageState extends State<HomePage> {
   int completedTodos = 0;
   int notFinishedTodos = 0;
   final key = GlobalKey<FormState>();
+  final focus = FocusNode();
 
   void createTodo() {
     final input = controller.text.trim();
+    if (input.isEmpty) return;
     final now = DateTime.now();
     final model = TodoModel(
       title: input,
@@ -62,8 +64,9 @@ class _HomePageState extends State<HomePage> {
       isFinished: false,
     );
     todos.add(model);
-    todos.sort((a, b) => a.title.compareTo(b.title));
+    todos.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
     notFinishedTodos++;
+    controller.clear();
     setState(() {});
   }
 
@@ -105,11 +108,20 @@ class _HomePageState extends State<HomePage> {
                       final model = todos[index];
                       return ListTile(
                         // created at AND finished at
-                        title: Text(model.title),
+                        title: Text(
+                          model.title,
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20,
+                          ),
+                        ),
                         subtitle: Text(
                           DateFormat.Hms().format(model.createdAt),
                           style: TextStyle(
-                            fontSize: 50,
+                            fontSize: 40,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         trailing: Column(
@@ -118,6 +130,7 @@ class _HomePageState extends State<HomePage> {
                               height: 30,
                               child: Checkbox(
                                 value: model.isFinished,
+                                activeColor: Colors.yellow.shade800,
                                 onChanged: (value) {
                                   finishTodo(model);
                                 },
@@ -125,7 +138,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             model.finishedAt == null
                                 ? SizedBox()
-                                : Text(DateFormat.Hms().format(model.finishedAt!)),
+                                : Text(
+                                    DateFormat.Hms().format(model.finishedAt!)),
                           ],
                         ),
                       );
@@ -138,6 +152,10 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: TextFormField(
                         controller: controller,
+                        focusNode: focus,
+                        onTapOutside: (value) {
+                          focus.unfocus();
+                        },
                         decoration: InputDecoration(
                           hintText: "Todo...",
                         ),
