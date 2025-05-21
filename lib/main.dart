@@ -1,5 +1,7 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(
@@ -89,28 +91,71 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [],
+          child: Form(
+            key: key,
+            child: Column(
+              children: [
+                // Length Of All Todos
+                // 1. Completed, 2. Not Finished (Count)
+
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: todos.length,
+                    itemBuilder: (context, index) {
+                      final model = todos[index];
+                      return ListTile(
+                        // created at AND finished at
+                        title: Text(model.title),
+                        subtitle: Text(
+                          DateFormat.Hms().format(model.createdAt),
+                          style: TextStyle(
+                            fontSize: 50,
+                          ),
+                        ),
+                        trailing: Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                              child: Checkbox(
+                                value: model.isFinished,
+                                onChanged: (value) {
+                                  finishTodo(model);
+                                },
+                              ),
+                            ),
+                            model.finishedAt == null
+                                ? SizedBox()
+                                : Text(DateFormat.Hms().format(model.finishedAt!)),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: controller,
+                        decoration: InputDecoration(
+                          hintText: "Todo...",
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: createTodo,
+                      child: Text("Save"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

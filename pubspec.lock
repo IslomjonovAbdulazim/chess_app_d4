@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  bishop:
+    dependency: "direct main"
+    description:
+      name: bishop
+      sha256: "49739eff3ff06ec44f1660ff06baec6b44bb8926114b5f6bbed96f24d11a98d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -346,6 +354,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
+  square_bishop:
+    dependency: "direct main"
+    description:
+      name: square_bishop
+      sha256: "6534c58cdd80da1dd19b8b81b031c85ccb2efc1bf96309e60756d96a3b0d78b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   squares:
     dependency: "direct main"
     description:

@@ -14,6 +14,8 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   squares: ^1.2.1
+  bishop: ^1.4.4
+  square_bishop: ^0.3.0
   device_preview: ^1.2.0
   intl:
 
