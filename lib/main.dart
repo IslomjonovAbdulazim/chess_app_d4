@@ -22,6 +22,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class TodoModel {
+  late String title;
+  late DateTime createdAt;
+  late DateTime? finishedAt;
+  late bool isFinished;
+
+  TodoModel({
+    required this.title,
+    required this.createdAt,
+    required this.finishedAt,
+    required this.isFinished,
+  });
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -30,6 +44,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<TodoModel> todos = [];
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
