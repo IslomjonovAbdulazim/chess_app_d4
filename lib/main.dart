@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
       isFinished: false,
     );
     todos.add(model);
-    todos.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+    todos.sort((a, b) => a.isFinished ? 1 : -1);
     notFinishedTodos++;
     controller.clear();
     setState(() {});
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
     }
     todos.removeWhere((model) => model.createdAt == todo.createdAt);
     todos.add(todo);
-    todos.sort((a, b) => a.title.compareTo(b.title));
+    todos.sort((a, b) => a.isFinished ? 1 : -1);
     setState(() {});
   }
 
